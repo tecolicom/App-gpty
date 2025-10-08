@@ -51,12 +51,28 @@ gpty [options] prompts
 
     3: gpt-3.5-turbo
     4: gpt-4o-mini
+    5: gpt-5
+    5-mini: gpt-5-mini
+    5-nano: gpt-5-nano
 
-これらは `-e3`、`-e4` のように使うことができる。
+これらは `-e3`、`-e4`、`-e5` のように使うことができる。
 
 ### -m, --max-tokens *number*
 
-レスポンスに含まれる最大トークン数 (default: 2000)
+レスポンスに含まれる最大トークン数 (default: 2000)  
+**注意**: GPT-5とo1モデルでは `max_completion_tokens` の使用が推奨されます。
+
+### --max-completion-tokens *number*
+
+完了トークンの最大数（GPT-5およびo1モデル用）
+
+### --verbosity *level*
+
+GPT-5モデルのレスポンス詳細度（low, medium, high）
+
+### --reasoning-effort *level*
+
+GPT-5モデルの推論努力レベル（minimal, low, medium, high）
 
 ### -t, --temperature *number*
 

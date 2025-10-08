@@ -20,7 +20,7 @@ Specifies a system message. Multiple messages can be specified by repeating.
 
 ### -I, --itemize *message*
 
-Put the given message at the top of the prompt, and bullet other prompts by inserting `* ` at the top. The `-` is read from standard input, but no bullet processing is performed on it. For example, you can use
+The given message is placed at the top of the prompt, and other prompts are bulleted by inserting `* ` at the top. The `-` is read from the standard input, but no bullet processing is performed on it. For example, you can use
 
     gpty -I 'Correct the following text according to the next conditions:' \
             'Lower case letters should be capitalized' \
@@ -46,12 +46,27 @@ The following aliases are defined for the engine name: ### -e, --engine *alias
 
     3: gpt-3.5-turbo
     4: gpt-4o-mini
+    5: gpt-5
+    5-mini: gpt-5-mini
+    5-nano: gpt-5-nano
 
-These can be used like `-e3` and `-e4`.
+These can be used as `-e3`, `-e4`, or `-e5`.
 
 ### -m, --max-tokens *number*.
 
-Maximum number of tokens in response (default: 2000).
+Maximum number of tokens in a response (default: 2000) **NOTE**: Use of `max_completion_tokens` is recommended for GPT-5 and o1 models.
+
+### --max-completion-tokens *number*.
+
+Maximum number of completion tokens (for GPT-5 and o1 models).
+
+### --verbosity *level*
+
+Response verbosity for GPT-5 models (low, medium, high)
+
+### --reasoning-effort *level*
+
+Level of reasoning effort for GPT-5 models (minimal, low, medium, high)
 
 ### -t, --temperature *number*
 

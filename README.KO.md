@@ -20,7 +20,7 @@ gpty [options] prompts
 
 ### -## -I, --itemize *message*
 
-주어진 메시지를 프롬프트의 맨 앞에 배치하고, 다른 프롬프트는 앞에 `*`를 삽입하여 글머리 기호로 만든다. `-`는 표준 입력에서 읽혀지지만, 이에 대해서는 글머리 기호 처리가 이루어지지 않는다. 예를 들어, 다음과 같이 사용할 수 있다.
+주어진 메시지를 프롬프트의 맨 앞에 배치하고, 다른 프롬프트는 `*`를 앞에 삽입하여 글머리 기호로 처리한다. `-`는 표준 입력에서 읽혀지지만, 이에 대해서는 글머리 기호 처리가 이루어지지 않는다. 예를 들어 다음과 같이 사용할 수 있다.
 
     gpty -I '다음 조건에 따라 다음 텍스트를 수정합니다:' \
             '소문자는 대문자로 표기해야 합니다' \
@@ -46,12 +46,27 @@ gpty [options] prompts
 
     3: gpt-3.5-turbo
     4: gpt-4o-mini
+    5: gpt-5
+    5-mini: gpt-5-mini
+    5-nano: gpt-5-nano
 
-이들은 `-e3`, `-e4`와 같이 사용할 수 있다.
+이들은 `-e3`, `-e4`, `-e5`와 같이 사용할 수 있다.
 
 ### -m, --max-tokens *number*
 
-응답에 포함될 최대 토큰 수 (default: 2000)
+응답에 포함된 최대 토큰 수 (default: 2000) **주의**: GPT-5와 o1 모델에서는 `max_completion_tokens` 사용을 권장한다.
+
+### --max-completion-tokens *number*
+
+완료 토큰의 최대 개수 (GPT-5 및 o1 모델용)
+
+### --verbosity *level*
+
+GPT-5 모델의 응답 상세도(low, medium, high)를 지정한다.
+
+### --reasoning-effort *level*
+
+GPT-5 모델의 추론 노력 수준(minimum, low, medium, high) ### --추론 노력 *level* ### --추론 노력 *level* ### --추론 노력 *level* ### --추론 노력
 
 ### -t, --temperature *number*
 

@@ -35,6 +35,9 @@ def vers(ctx: typer.Context, value: bool):
 aliases = {
     "3": "gpt-3.5-turbo",
     "4": "gpt-4o-mini",
+    "5": "gpt-5",
+    "5-mini": "gpt-5-mini",
+    "5-nano": "gpt-5-nano",
 }
 
 @app.command()
@@ -43,7 +46,10 @@ def main(
     system:      List[str] = typer.Option([], "--system", "-s",         help="Set system message (can be used multiple times)"),
     itemize:     Optional[str] = typer.Option(None, "--itemize", "-I",  help="Itemize other prompts after this message"),
     engine:      str = typer.Option("gpt-4o-mini", "--engine", "-e",    help="OpenAI GPT engine"),
-    max_tokens:  int = typer.Option(2000, "--max-tokens", "-m",         help="Maximum number of tokens in the response"),
+    max_tokens:  int = typer.Option(2000, "--max-tokens", "-m",         help="Maximum number of tokens in the response (deprecated for GPT-5, use max_completion_tokens)"),
+    max_completion_tokens: Optional[int] = typer.Option(None, "--max-completion-tokens", help="Maximum number of completion tokens (for GPT-5 and o1 models)"),
+    verbosity: Optional[str] = typer.Option(None, "--verbosity", help="Response verbosity for GPT-5 (low, medium, high)"),
+    reasoning_effort: Optional[str] = typer.Option(None, "--reasoning-effort", help="Reasoning effort for GPT-5 (minimal, low, medium, high)"),
     temperature: float = typer.Option(0.5, "--temperature", "-t",       help="Sampling temperature for randomness"),
     key:         Optional[str] = typer.Option(None, "--key", "-k",      help="OpenAI API key"),
     squeeze:     bool = typer.Option(False, "--squeeze", "-q",          help="Squeeze two or more newlines into one"),
@@ -89,12 +95,38 @@ def main(
     request_params = {
         "model": engine,
         "messages": messages,
-        "max_tokens": max_tokens,
         "n": 1,
         "stop": None,
-        "temperature": temperature,
         "timeout": 60,
     }
+    
+    # Add temperature parameter only if not default for GPT-5
+    if engine.startswith("gpt-5"):
+        # GPT-5 only supports temperature = 1 (default)
+        if temperature != 1.0:
+            debug_print(f"Warning: GPT-5 only supports temperature=1, ignoring temperature={temperature}")
+    else:
+        request_params["temperature"] = temperature
+    
+    # Handle token limit parameters based on model type
+    if engine.startswith("gpt-5") or engine.startswith("o1"):
+        # Use max_completion_tokens for GPT-5 and o1 models
+        if max_completion_tokens is not None and max_completion_tokens > 0:
+            request_params["max_completion_tokens"] = max_completion_tokens
+        elif max_tokens > 0:
+            # Fallback to max_tokens value if max_completion_tokens not specified
+            request_params["max_completion_tokens"] = max_tokens
+    else:
+        # Use max_tokens for older models
+        if max_tokens > 0:
+            request_params["max_tokens"] = max_tokens
+    
+    # Add GPT-5 specific parameters
+    if engine.startswith("gpt-5"):
+        if verbosity in ["low", "medium", "high"]:
+            request_params["verbosity"] = verbosity
+        if reasoning_effort in ["minimal", "low", "medium", "high"]:
+            request_params["reasoning_effort"] = reasoning_effort
 
     if debug:
         debug_print("\nRequest Parameters:")
