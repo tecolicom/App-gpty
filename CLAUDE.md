@@ -67,6 +67,21 @@ The tool processes prompts in sequence:
 - Default temperature: 0.5
 - Default max tokens: 2000
 
+## Release Process
+
+1. Update `version` in `pyproject.toml`
+2. Update `Changes` file
+3. Update copyright year if needed (README.md → `make all` for translations)
+4. Commit all changes
+5. Tag and push:
+   ```bash
+   git push origin main
+   git tag X.Y.Z
+   git push origin X.Y.Z
+   ```
+
+Not published to PyPI. Installed via `pip install git+https://github.com/tecolicom/App-gpty.git`.
+
 ## Code Style Requirements
 
 - **CRITICAL**: All text files (including source code, documentation, configuration files, etc.) MUST end with a newline character

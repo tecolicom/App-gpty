@@ -163,4 +163,4 @@ The following copyright notice applies to all the files provided in
 this distribution, including binary files, unless explicitly noted
 otherwise.
 
-Copyright © 2023-2024 Kazumasa Utashiro
+Copyright © 2023-2026 Kazumasa Utashiro
