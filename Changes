@@ -1,5 +1,9 @@
 # Change log
 
+## (unreleased)
+
+- Support GPT-5.5 reasoning_effort values (none, xhigh) and add "5.5" engine alias
+
 ## 0.3.0 (2026-02-21)
 
 - Add GPT-5 model support with new parameters (max_completion_tokens, reasoning_effort, verbosity)

@@ -38,6 +38,7 @@ aliases = {
     "5": "gpt-5",
     "5-mini": "gpt-5-mini",
     "5-nano": "gpt-5-nano",
+    "5.5": "gpt-5.5",
 }
 
 @app.command()
@@ -49,7 +50,7 @@ def main(
     max_tokens:  int = typer.Option(2000, "--max-tokens", "-m",         help="Maximum number of tokens in the response (deprecated for GPT-5, use max_completion_tokens)"),
     max_completion_tokens: Optional[int] = typer.Option(None, "--max-completion-tokens", help="Maximum number of completion tokens (for GPT-5 and o1 models)"),
     verbosity: Optional[str] = typer.Option(None, "--verbosity", help="Response verbosity for GPT-5 (low, medium, high)"),
-    reasoning_effort: Optional[str] = typer.Option(None, "--reasoning-effort", help="Reasoning effort for GPT-5 (minimal, low, medium, high)"),
+    reasoning_effort: Optional[str] = typer.Option(None, "--reasoning-effort", help="Reasoning effort for GPT-5 (minimal, low, medium, high) / GPT-5.5 (none, low, medium, high, xhigh)"),
     temperature: float = typer.Option(0.5, "--temperature", "-t",       help="Sampling temperature for randomness"),
     key:         Optional[str] = typer.Option(None, "--key", "-k",      help="OpenAI API key"),
     squeeze:     bool = typer.Option(False, "--squeeze", "-q",          help="Squeeze two or more newlines into one"),
@@ -125,7 +126,7 @@ def main(
     if engine.startswith("gpt-5"):
         if verbosity in ["low", "medium", "high"]:
             request_params["verbosity"] = verbosity
-        if reasoning_effort in ["minimal", "low", "medium", "high"]:
+        if reasoning_effort in ["minimal", "none", "low", "medium", "high", "xhigh"]:
             request_params["reasoning_effort"] = reasoning_effort
 
     if debug:
