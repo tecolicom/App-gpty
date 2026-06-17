@@ -3,6 +3,7 @@
 ## (unreleased)
 
 - Support GPT-5.5 reasoning_effort values (none, xhigh) and add "5.5" engine alias
+- Require openai 2.x (^2.0); 2.x formally recognizes the "none"/"xhigh" reasoning_effort values
 
 ## 0.3.0 (2026-02-21)
 
