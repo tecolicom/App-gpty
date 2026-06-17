@@ -1,9 +1,10 @@
 # Change log
 
-## (unreleased)
+## 0.4.0 (2026-06-17)
 
 - Support GPT-5.5 reasoning_effort values (none, xhigh) and add "5.5" engine alias
 - Require openai 2.x (^2.0); 2.x formally recognizes the "none"/"xhigh" reasoning_effort values
+- Migrate pyproject.toml to PEP 621 for Poetry 2.x
 
 ## 0.3.0 (2026-02-21)
 

@@ -1,6 +1,6 @@
 [project]
 name = "tecolicom-gpty"
-version = "0.3.0"
+version = "0.4.0"
 description = "OpenAI GPT API Command Line Wrapper"
 authors = [
     {name = "Kazumasa Utashiro", email = "kaz@utashiro.com"},
